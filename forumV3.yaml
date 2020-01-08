@@ -58,7 +58,7 @@ paths:
       summary: Info for a specific forum
       operationId: getForumDetails
       tags:
-        - pets
+        - Forums
       parameters:
         - name: portalId
           in: path
