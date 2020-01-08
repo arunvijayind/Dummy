@@ -10,7 +10,7 @@ paths:
       summary: List all forums for a perticular project.
       operationId: listForums
       tags:
-        - pets
+        - Forums
       parameters:
         - name: index
           in: query
@@ -43,7 +43,7 @@ paths:
       summary: Create a forum
       operationId: createForums
       tags:
-        - pets
+        - Forums
       responses:
         201:
           description: Null response
