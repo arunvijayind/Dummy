@@ -1,0 +1,125 @@
+openapi: "3.0.0"
+info:
+  version: 3.0.0
+  title: Zoho Projects V3 API's
+servers:
+  - url: https://projectsapi.zoho.com/api/v3
+paths:
+  /portal/{portalId}/projects/{projectId}/forums:
+    get:
+      summary: List all forums for a perticular project.
+      operationId: listForums
+      tags:
+        - pets
+      parameters:
+        - name: index
+          in: query
+          description: starting index
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: range
+          in: query
+          description: How many items to return at one time (max 200)
+          required: false
+          schema:
+            type: integer
+            format: int32
+      responses:
+        200:
+          description: An paged array of forums
+          content:
+            application/json:    
+              schema:
+                $ref: "#/components/schemas/Forums"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      summary: Create a forum
+      operationId: createForums
+      tags:
+        - pets
+      responses:
+        201:
+          description: Null response
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /portal/{portalId}/projects/{projectId}/forums/{forumId}:
+    get:
+      summary: Info for a specific forum
+      operationId: getForumDetails
+      tags:
+        - pets
+      parameters:
+        - name: portalId
+          in: path
+          required: true
+          description: The id of the poral
+          schema:
+            type: string
+        - name: projectId
+          in: path
+          required: true
+          description: The id of the project
+          schema:
+            type: string
+        - name: forumId
+          in: path
+          required: true
+          description: The id of the forum to retrieve
+          schema:
+            type: string
+      responses:
+        200:
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Forums"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+components:
+  schemas:
+    Forum:
+      required:
+        - id
+        - name
+        - title
+      properties:
+        id:
+          type: integer
+          format: int64
+        title:
+          type: string
+        content:
+          type: string
+        flag:
+          type: string
+        type:
+          type: string
+        comment_count:
+          type: integer
+    Forums:
+      type: array
+      items:
+        $ref: "#/components/schemas/Forum"
+    Error:
+      required:
+        - error
+      properties:
+        error:
+          type: string
+       
